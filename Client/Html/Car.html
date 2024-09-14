@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrito de Compras</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../Css/style.css">
+  <script src="https://kit.fontawesome.com/a8f0e274dc.js" crossorigin="anonymous" defer></script>
+</head>
+<body>
+  <nav class="navbar navbar-expand-md bg-light navbar-light sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="../index.html">LoremStyle</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li><a href="./Auth/Auth.Html" class="btn-auth">Login/Register</a></li>
+          <li class="nav-item"><a class="nav-link" href="./Shop/shirts.html">Camisas</a></li>
+          <li class="nav-item"><a class="nav-link" href="./Shop/pants.html">Pantalones</a></li>
+          <li class="nav-item"><a class="nav-link" href="./Shop/dresses.html">Vestidos</a></li>
+          <li class="nav-item"><a class="nav-link" href="./Shop/accessories.html">Accesorios</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container py-5">
+    <h1 class="text-center mb-4">Carrito de Compras</h1>
+
+    <div id="empty-cart" class="text-center p-5 border" style="display: none;">
+      <div>
+        <img src="placeholder.svg?height=100&width=100" alt="Shopping Bag" class="mb-3" style="width: 50px;">
+        <p class="h5">Su carrito está vacío</p>
+        <p>Añada algunos productos para comenzar a comprar</p>
+      </div>
+    </div>
+
+    <div id="cart" style="display: none;">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Total</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="cart-items">
+        </tbody>
+      </table>
+      <div class="d-flex justify-content-between">
+        <div class="h4">Total: $<span id="cart-total">0.00</span></div>
+        <button class="btn btn-primary">Proceder al Pago</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="bg-light py-4">
+    <div class="container text-center">
+        <p>&copy; 2024 ModaStyle. Todos los derechos reservados.</p>
+        <a href="support.html">Support</a>
+    </div>
+</footer>
+
+  <script src="../Js/car.js" defer></script>
+  <script src="../Js/car-menu_handler.js" defer></script>
+</body>
+</html>
