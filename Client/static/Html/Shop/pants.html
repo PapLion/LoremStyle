@@ -4,26 +4,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LoremStyle - Camisas</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">   
-    <link rel="stylesheet" href="../../Css/style.css">
+    <title>LoremStyle - Pantalones</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="static/Css/style.css">
     <script src="https://kit.fontawesome.com/a8f0e274dc.js" crossorigin="anonymous" defer></script>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-md bg-light navbar-light sticky-top">
         <div class="container">
-          <a class="navbar-brand" href="../../index.html">LoremStyle</a>
+          <a class="navbar-brand" href="/home">LoremStyle</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
-              <li><a href="../Auth/Auth.Html" class="btn-auth">Login/Register</a></li>
-              <li class="nav-item"><a class="nav-link" href="shirts.html">Camisas</a></li>
-              <li class="nav-item"><a class="nav-link" href="pants.html">Pantalones</a></li>
-              <li class="nav-item"><a class="nav-link" href="dresses.html">Vestidos</a></li>
-              <li class="nav-item"><a class="nav-link" href="accessories.html">Accesorios</a></li>
+              <li><a href="/join" class="btn-auth">Login/Register</a></li>
+              <li class="nav-item"><a class="nav-link" href="/home/shirts">Camisas</a></li>
+              <li class="nav-item"><a class="nav-link" href="/home/pants">Pantalones</a></li>
+              <li class="nav-item"><a class="nav-link" href="/home/dresses">Vestidos</a></li>
+              <li class="nav-item"><a class="nav-link" href="/home/accessories">Accesorios</a></li>
               <li class="nav-item d-flex align-items-center justify-content-center">
                 <i class="fa-solid fa-cart-shopping" id="cart-icon" style="font-size: 1.5rem; cursor: pointer;"></i>
                 <span id="item-count" class="badge bg-danger ms-2">0</span>
@@ -47,7 +47,7 @@
             <span>Total:</span>
             <span id="total-price">$0.00</span>
           </div>
-          <button class="btn btn-dark w-100 mt-2" id="checkout" disabled>Proceder al Pago</button>
+          <a href="/car" class="btn btn-dark w-100 mt-2" id="checkout-link" disabled>Proceder al Pago</a>
         </div>
       </div>
     
@@ -55,34 +55,34 @@
 
     <section class="py-5">
         <div class="container">
-            <h2 class="text-center mb-5">Camisas</h2>
+            <h2 class="text-center mb-5">Pantalones</h2>
             <div class="row g-4">
                 <div class="col-md-4">
                     <div class="card">
-                        <img src="camisa1.jpg" class="product-image" alt="Camisa 1">
+                        <img src="pantalon1.jpg" class="product-image" alt="Pantalon 1">
                         <div class="card-body">
-                            <h5 class="card-title">Camisa Lorem Ipsum</h5>
-                            <p class="card-text">$19.99</p>
+                            <h5 class="card-title">Pantalón Lorem Ipsum</h5>
+                            <p class="card-text">$24.99</p>
                             <button class="btn btn-primary w-100">Agregar al Carrito</button>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="card">
-                        <img src="camisa2.jpg" class="product-image" alt="Camisa 2">
+                        <img src="pantalon2.jpg" class="product-image" alt="Pantalon 2">
                         <div class="card-body">
-                            <h5 class="card-title">Camisa Dolor Sit Amet</h5>
-                            <p class="card-text">$29.99</p>
+                            <h5 class="card-title">Pantalón Dolor Sit Amet</h5>
+                            <p class="card-text">$34.99</p>
                             <button class="btn btn-primary w-100">Agregar al Carrito</button>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="card">
-                        <img src="camisa3.jpg" class="product-image" alt="Camisa 3">
+                        <img src="pantalon3.jpg" class="product-image" alt="Pantalon 3">
                         <div class="card-body">
-                            <h5 class="card-title">Camisa Consectetur</h5>
-                            <p class="card-text">$39.99</p>
+                            <h5 class="card-title">Pantalón Consectetur</h5>
+                            <p class="card-text">$44.99</p>
                             <button class="btn btn-primary w-100">Agregar al Carrito</button>
                         </div>
                     </div>
@@ -92,30 +92,30 @@
             <div class="row g-4">
                 <div class="col-md-4">
                     <div class="card">
-                        <img src="camisa1.jpg" class="product-image" alt="Camisa 1">
+                        <img src="pantalon1.jpg" class="product-image" alt="Pantalon 1">
                         <div class="card-body">
-                            <h5 class="card-title">Camisa Lorem Ipsum</h5>
-                            <p class="card-text">$19.99</p>
+                            <h5 class="card-title">Pantalón Lorem Ipsum</h5>
+                            <p class="card-text">$24.99</p>
                             <button class="btn btn-primary w-100">Agregar al Carrito</button>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="card">
-                        <img src="camisa2.jpg" class="product-image" alt="Camisa 2">
+                        <img src="pantalon2.jpg" class="product-image" alt="Pantalon 2">
                         <div class="card-body">
-                            <h5 class="card-title">Camisa Dolor Sit Amet</h5>
-                            <p class="card-text">$29.99</p>
+                            <h5 class="card-title">Pantalón Dolor Sit Amet</h5>
+                            <p class="card-text">$34.99</p>
                             <button class="btn btn-primary w-100">Agregar al Carrito</button>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="card">
-                        <img src="camisa3.jpg" class="product-image" alt="Camisa 3">
+                        <img src="pantalon3.jpg" class="product-image" alt="Pantalon 3">
                         <div class="card-body">
-                            <h5 class="card-title">Camisa Consectetur</h5>
-                            <p class="card-text">$39.99</p>
+                            <h5 class="card-title">Pantalón Consectetur</h5>
+                            <p class="card-text">$44.99</p>
                             <button class="btn btn-primary w-100">Agregar al Carrito</button>
                         </div>
                     </div>
@@ -125,30 +125,30 @@
             <div class="row g-4">
                 <div class="col-md-4">
                     <div class="card">
-                        <img src="camisa1.jpg" class="product-image" alt="Camisa 1">
+                        <img src="pantalon1.jpg" class="product-image" alt="Pantalon 1">
                         <div class="card-body">
-                            <h5 class="card-title">Camisa Lorem Ipsum</h5>
-                            <p class="card-text">$19.99</p>
+                            <h5 class="card-title">Pantalón Lorem Ipsum</h5>
+                            <p class="card-text">$24.99</p>
                             <button class="btn btn-primary w-100">Agregar al Carrito</button>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="card">
-                        <img src="camisa2.jpg" class="product-image" alt="Camisa 2">
+                        <img src="pantalon2.jpg" class="product-image" alt="Pantalon 2">
                         <div class="card-body">
-                            <h5 class="card-title">Camisa Dolor Sit Amet</h5>
-                            <p class="card-text">$29.99</p>
+                            <h5 class="card-title">Pantalón Dolor Sit Amet</h5>
+                            <p class="card-text">$34.99</p>
                             <button class="btn btn-primary w-100">Agregar al Carrito</button>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="card">
-                        <img src="camisa3.jpg" class="product-image" alt="Camisa 3">
+                        <img src="pantalon3.jpg" class="product-image" alt="Pantalon 3">
                         <div class="card-body">
-                            <h5 class="card-title">Camisa Consectetur</h5>
-                            <p class="card-text">$39.99</p>
+                            <h5 class="card-title">Pantalón Consectetur</h5>
+                            <p class="card-text">$44.99</p>
                             <button class="btn btn-primary w-100">Agregar al Carrito</button>
                         </div>
                     </div>
@@ -171,12 +171,12 @@
     <footer class="bg-light py-4">
         <div class="container text-center">
             <p>&copy; 2024 ModaStyle. Todos los derechos reservados.</p>
-            <a href="../support.html">Support</a>
+            <a href="/support">Support</a>
         </div>
     </footer>
 
-    <script src="../../Js/car-menu_handler.js" defer></script>
-    <script src="../../Js/script.js" defer></script>
+    <script src="static/Js/car-menu_handler.js" defer></script>
+    <script src="static/Js/script.js" defer></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
