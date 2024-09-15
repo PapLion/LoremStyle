@@ -11,6 +11,17 @@ let cartItems = [
   { id: 10, name: "Corbata Elegante", price: 24.99, quantity: 1 }
 ];
 
+const addRandomItemToCart = () => {
+  const newItem = { 
+    id: cartItems.length + 1, 
+    name: `Nuevo Producto ${cartItems.length + 1}`, 
+    price: (Math.random() * 100).toFixed(2), 
+    quantity: 1 
+  };
+  cartItems.push(newItem);
+  updateCart();
+};
+
 const cartIcon = document.getElementById('cart-icon');
 const cartSidebar = document.getElementById('cart-sidebar');
 const closeCartButton = document.getElementById('close-cart');
