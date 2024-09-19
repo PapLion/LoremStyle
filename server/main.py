@@ -35,7 +35,7 @@ class FastServer:
         Raises:
             RuntimeError: Si el directorio de archivos estáticos no existe.
         """
-        static_dir = Path(__file__).resolve().parent / "../Client/static"
+        static_dir = Path(__file__).resolve().parent / "../Client       "
         if not static_dir.exists():
             raise RuntimeError(f"Directory '{static_dir}' does not exist")
         app.mount("/static", StaticFiles(directory=static_dir), name="static")
