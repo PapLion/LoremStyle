@@ -5,6 +5,6 @@ from pathlib import Path
 app = APIRouter()
 
 @app.get("/support", response_class=HTMLResponse)
-def auth_pages():
+async def auth_pages():
     path = Path('../Client/static/Html/support.html')
     return path.read_text(encoding='utf-8')
