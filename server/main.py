@@ -1,7 +1,7 @@
 from fastapi import FastAPI, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from routers import auth, home, car, support, shop
+from routers import auth, home, car, support, shop, items
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -11,14 +11,13 @@ app = FastAPI()
 class FastServer:
     def __init__(self, routers: list[APIRouter]) -> None:
         """
-        Inicializa una instancia de FastServer.
-
-        Este constructor configura los valores iniciales de la instancia
-        y ejecuta las funciones necesarias para configurar
-        la aplicación FastAPI.
-
+        Initializes an instance of FastServer.
+        This constructor sets the initial values of the instance
+        and executes the necessary functions to configure
+        the FastAPI application.
+        
         Args:
-            routers (list[APIRouter]): Lista de routers que se agregarán a la aplicación.
+            routers (list[APIRouter]): List of routers to be added to the application.
         """
         self.set_static()
         self.set_middleware()
@@ -26,16 +25,15 @@ class FastServer:
 
     def set_static(self) -> None:
         """
-        Configura la ruta para servir archivos estáticos.
-
-        Esta función verifica si el directorio de archivos estáticos existe.
-        Si no existe, se lanza un error. Los archivos estáticos se montan
-        en la ruta '/static'.
+        Configures the path to serve static files.
+        This function checks if the static files directory exists.
+        If it does not exist, an error is raised. Static files are mounted
+        at the '/static' path.
         
         Raises:
-            RuntimeError: Si el directorio de archivos estáticos no existe.
+            RuntimeError: If the static files directory does not exist.
         """
-        static_dir = Path(__file__).resolve().parent / "../Client       "
+        static_dir = Path(__file__).resolve().parent / "../Client/static"
         if not static_dir.exists():
             raise RuntimeError(f"Directory '{static_dir}' does not exist")
         app.mount("/static", StaticFiles(directory=static_dir), name="static")
@@ -43,17 +41,16 @@ class FastServer:
 
     def set_middleware(self) -> None:
         """
-        Configura el middleware CORS para la aplicación.
-
-        Esta función restringe el acceso a recursos de distintos orígenes.
-        Por defecto, se permiten todos los orígenes, credenciales, métodos
-        y encabezados. Modificar según sea necesario.
-
-        Configuración por defecto:
-            - Orígenes: Todos permitidos.
-            - Credenciales: Todos permitidos.
-            - Métodos: Todos permitidos.
-            - Headers: Todos permitidos.
+        Configures CORS middleware for the application.
+        This function restricts access to resources from different origins.
+        By default, all origins, credentials, methods, and headers are allowed.
+        Modify as necessary.
+        
+        Default configuration:
+            - Origins: All allowed.
+            - Credentials: All allowed.
+            - Methods: All allowed.
+            - Headers: All allowed.
         """
         app.add_middleware(
             CORSMiddleware,
@@ -65,20 +62,19 @@ class FastServer:
 
     def set_routers(self, routers: list[APIRouter]) -> None:
         """
-        Agrega los routers a la aplicación FastAPI.
-
-        Esta función incluye las rutas proporcionadas en el parámetro
-        routers a la aplicación.
-
+        Adds routers to the FastAPI application.
+        This function includes the routes provided in the routers parameter
+        to the application.
+        
         Args:
-            routers (list[APIRouter]): Lista de routers a agregar a la aplicación.
+            routers (list[APIRouter]): List of routers to add to the application.
         """
         for r in routers:
             app.include_router(r)
 
-# Lista de routers.
-routers = [auth.app, home.app, car.app, support.app, shop.app]
+# List of routers.
+routers = [auth.app, home.app, car.app, support.app, shop.app, items.app]
 
-# Objeto FastServer al cual le pasamos la lista de
-# routers como parámetro.
+# FastServer object to which we pass the list of
+# routers as a parameter.
 server = FastServer(routers)
