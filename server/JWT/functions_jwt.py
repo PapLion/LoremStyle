@@ -2,7 +2,10 @@ from fastapi.responses import JSONResponse
 from jwt import encode, decode
 from jwt import exceptions 
 from datetime import datetime, timedelta 
-from os import getenv 
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def expire_date(days: int) -> int:
     """
@@ -32,13 +35,13 @@ def write_token(data: dict) -> str:
         ValueError: Si la clave secreta no es válida o si los datos no son un diccionario.
         RuntimeError: Si ocurre un error al generar el token.
     """
-    secret_key = getenv("SECRET")
+    secret_key = os.getenv('SECRET_KEY')
     if not isinstance(secret_key, str) or not secret_key:
         raise ValueError("La clave secreta debe ser una cadena no vacía.")
     if not isinstance(data, dict):
         raise ValueError("Los datos deben ser un diccionario.")
     try:
-        token = encode(payload={**data, "exp": expire_date(2)}, key=secret_key, algorithm="HS256")
+        token = encode(payload={**data, "exp": expire_date(30)}, key=secret_key, algorithm="HS256")
         print(token)
     except Exception as e:
         raise RuntimeError("Error al generar el token: " + str(e))

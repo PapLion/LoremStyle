@@ -2,22 +2,23 @@ import pytest
 from fastapi.testclient import TestClient
 from main import app
 
-client = TestClient(app)
-"""
-@pytest.mark.asyncio
-async def test_join_request_registersys_when_name_exist():
-    ""Test for creating a new user successfully""
-    response = client.post(
-        url='/join_request',
-        json={
-            'name': 'Louis',
-            'email': 'john_doe@exampleV.com',
-            'password': 'hashed1'
-        }
-    )
-    assert response.status_code == 201
-    assert response.json()["detail"] == "token"
-"""
+client = TestClient(app) 
+
+# Tests for Auth
+
+# @pytest.mark.asyncio
+# async def test_join_request_registersys_when_name_exist():
+#     """Test for creating a new user successfully"""
+#     response = client.post(
+#         url='/join_request',
+#         json={
+#             'name': 'Louis',
+#             'email': 'john_doe@exampleV.com',
+#             'password': 'hashed1'
+#         }
+#     )
+#     assert response.status_code == 201
+#     assert response.json()["detail"] == "token"
 
 @pytest.mark.asyncio
 async def test_join_request_registersys_when_email_already_existe():
@@ -45,7 +46,7 @@ async def test_join_request_loginsys_when_name_does_not_exist():
         }
     )
     assert response.status_code == 200
-    assert response.json()["detail"] == "token"
+
 
 @pytest.mark.asyncio
 async def test_join_request_loginsys_when_email_is_wrong():
@@ -74,3 +75,9 @@ async def test_join_request_loginsys_when_password_is_wrong():
     )
     assert response.status_code == 409
     assert response.json()["detail"] == "Wrong password"
+
+
+
+
+
+

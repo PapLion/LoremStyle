@@ -1,12 +1,40 @@
-from fastapi import APIRouter, HTTPException, status
-from fastapi.responses import HTMLResponse
+from fastapi import APIRouter, HTTPException, status, Depends
+from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from models import authenticate_model
 from pathlib import Path
 from database.queries import InsertQueries, SearchQueries
 from database.data_hashed import hash_data, check_password_hash
-from JWT.functions_jwt import write_token
+from JWT.functions_jwt import write_token, validate_token
 
 app = APIRouter()
+
+security = HTTPBearer()
+
+@app.get('/verify_token')
+async def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)):
+    token = credentials.credentials
+    validate_token_response = validate_token(token=token)
+
+    if isinstance(validate_token_response, JSONResponse):
+        # Raise status 403 if invalid token
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail='Invalid token'
+        )
+
+    # Raise status 202 if valid token
+    raise HTTPException(
+        status_code=status.HTTP_202_ACCEPTED,
+        detail=token
+    )
+
+
+@app.get('/unathorized401', response_class=HTMLResponse)
+async def unauthorizate_page():
+    path = Path('../Client/static/Html/Auth/unauthorized401.html')
+    return path.read_text(encoding='utf-8')
+
 
 @app.get("/join", response_class=HTMLResponse)
 async def auth_page():

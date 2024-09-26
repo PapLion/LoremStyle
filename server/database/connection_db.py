@@ -1,5 +1,4 @@
 import aiomysql
-import asyncio
 
 async def connection():
     try:
