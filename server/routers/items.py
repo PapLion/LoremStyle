@@ -2,12 +2,12 @@ from fastapi import APIRouter, HTTPException, status
 from fastapi.responses import HTMLResponse
 from pathlib import Path
 from models import item_create_model, item_delete_model
-from database.queries import InsertQueries, dropQueries
+from database.queries import InsertQueries, DropQueries
 
 app = APIRouter()
 
 @app.post("/item_insert")
-async def car_page(item: item_create_model):
+async def insert_item(item: item_create_model):
     iq = InsertQueries()
     response = await iq.insert_item(
                 name=item.name,

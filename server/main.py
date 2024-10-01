@@ -1,9 +1,10 @@
 from fastapi import FastAPI, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from routers import auth, home, car, support, shop, items
+from routers import auth, home, support, items, catalog, cart
 from pathlib import Path
 from dotenv import load_dotenv
+
 
 load_dotenv('JWT/.env')
 app = FastAPI()
@@ -37,7 +38,8 @@ class FastServer:
         if not static_dir.exists():
             raise RuntimeError(f"Directory '{static_dir}' does not exist")
         app.mount("/static", StaticFiles(directory=static_dir), name="static")
-        app.mount("/home/static", StaticFiles(directory=static_dir), name="static")
+        app.mount("/cart/static", StaticFiles(directory=static_dir), name="static")
+        app.mount("/cart/payment/static", StaticFiles(directory=static_dir), name="static")
 
     def set_middleware(self) -> None:
         """
@@ -73,7 +75,7 @@ class FastServer:
             app.include_router(r)
 
 # List of routers.
-routers = [auth.app, home.app, car.app, support.app, shop.app, items.app]
+routers = [auth.app, home.app, cart.app, support.app, items.app, catalog.app]
 
 # FastServer object to which we pass the list of
 # routers as a parameter.

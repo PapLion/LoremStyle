@@ -17,5 +17,13 @@ class item_create_model(BaseModel):
     release_date: str
     popularity: int
 
+class token_user(BaseModel):
+    token: str
+
 class item_delete_model(BaseModel):
     id: int
+
+class cart(BaseModel):
+    item_id: int
+    user_id: int
+    quantity: int

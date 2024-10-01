@@ -62,7 +62,7 @@ def validate_token(token: str, output: bool = False) -> dict | JSONResponse:
     Raises:
         JSONResponse: Si la clave secreta no está configurada, el token ha expirado o es inválido.
     """
-    secret_key = getenv("SECRET")
+    secret_key = os.getenv("SECRET_KEY")
     if not secret_key:
         return JSONResponse(content={"message": "Secret key is not set"}, status_code=500)
     try:

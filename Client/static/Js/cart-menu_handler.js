@@ -11,6 +11,55 @@ let cartItems = [
   { id: 10, name: "Corbata Elegante", price: 24.99, quantity: 1 }
 ];
 
+
+/*  
+    Al ingresar a las rutas (/home, /catalog, /support), es necesario hacer
+    una petición al servidor para saber cuántos y qué items estan agregados
+    al carrito, por este motivo necesito que realices una petición (GET) a la ruta /items_cart con un header
+    de autorización bearer al cual le vas a pasar el token del usuario (Si no sabes como
+    obtener el token me avisas.)
+
+    El servidor retornará los items agregados al Cart del usuario en un orden desde el primero al último. Ya de ti depende
+    crear un script que cuente la cantidad de items obtenidos y así puedas ir modificando el numerito
+    que aparece debajo del icono de cart. La informacion que te enviara el servidor se ve asi:
+
+                [
+          {
+            "id": 1,
+            "name": "T-shirt",
+            "price": 19.99,
+            "audience": null,
+            "image": null,
+            "quantity": 111
+          },
+          {
+            "id": 3,
+            "name": "Smartphone",
+            "price": 599.99,
+            "audience": null,
+            "image": null,
+            "quantity": 12
+          }
+        ]
+
+
+        
+
+    Necesito que realices una petición (POST) a la ruta /add_to_cart cada vez
+    que quieras agregar un item al carrito.
+    Datos a enviar:
+      item_id: int
+      user_token: str (Si no sabes como obtener el token me avisas)
+
+
+    Necesito que realices una petición (POST) a la ruta /delete_to_cart cada vez
+    que quieras eliminar un item del carrito.
+    Datos a enviar:
+      item_id: int
+      user_token: str (Si no sabes como obtener el token me avisas)
+.*/
+
+
 const addRandomItemToCart = () => {
   const newItem = { 
     id: cartItems.length + 1, 
