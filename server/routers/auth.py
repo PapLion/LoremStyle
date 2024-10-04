@@ -32,7 +32,7 @@ async def verify_token(credentials: HTTPAuthorizationCredentials = Depends(secur
 
 @app.get('/unathorized401', response_class=HTMLResponse)
 async def unauthorizate_page():
-    path = Path('../Client/static/Html/Auth/unauthorized401.html')
+    path = Path('../Client/static/Html/Error/401.html')
     return path.read_text(encoding='utf-8')
 
 

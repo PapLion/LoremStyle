@@ -1,92 +1,214 @@
-.navbar-brand svg {
-    width: 30px;
-    height: 30px;
+:root {
+  --coffee-dark: #3C2A21;
+  --coffee-medium: #967259;
+  --coffee-light: #D7C0AE;
+  --cream: #F2E3D5;
 }
 
-.card-icon {
-    font-size: 2rem;
+/* Estilos generales */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--coffee-dark);
+  background-color: var(--cream);
 }
 
-.card:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+h1, h2 {
+  color: var(--coffee-dark);
 }
 
-.product-image {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
+/* Navegación */
+.navbar {
+  background-color: var(--coffee-light);
 }
 
-.star-rating {
-    color: yellow;
+.navbar-brand {
+  color: var(--coffee-dark);
+  font-weight: bold;
 }
 
-.instagram-overlay {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.5);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.instagram-overlay:hover {
-    opacity: 1;
+.nav-link {
+  color: var(--coffee-dark);
 }
 
 .nav-item i {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .cart-sidebar {
-    position: fixed;
-    top: 0;
-    right: -400px;
-    width: 400px;
-    height: 100%;
-    background-color: #f8f9fa;
-    box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    transition: right 0.3s ease-in-out;
-    z-index: 1001;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  
-  .cart-sidebar.active {
-    right: 0;
-  }
-  
-  .cart-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    display: none;
-  }
-  
-  .cart-overlay.active {
-    display: block;
-  }
-  
-  .cart-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .cart-footer {
-    margin-top: auto;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+/* Botones */
+.btn-primary, .btn-dark, .btn-auth {
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background-color: var(--coffee-medium);
+  border-color: var(--coffee-medium);
+}
+
+.btn-primary:hover, .btn-dark:hover {
+  background-color: var(--coffee-dark);
+  border-color: var(--coffee-dark);
+}
+
+.btn-dark {
+  background-color: var(--coffee-dark);
+  border: none;
+}
+
+.btn-auth {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: var(--coffee-medium);
+  color: var(--cream);
+  font-weight: bold;
+  border-radius: 25px;
+  text-decoration: none;
+}
+
+.btn-auth:hover {
+  background-color: var(--coffee-dark);
+  color: var(--cream);
+  transform: scale(1.05);
+}
+
+.btn-auth:focus {
+  outline: none;
+  box-shadow: 0 0 10px rgba(150, 114, 89, 0.6);
+}
+
+/* Tarjetas */
+.card {
+  border: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card.active {
+  background-color: #fff;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+.card.inactive {
+  background-color: var(--coffee-light);
+  opacity: 0.7;
+  filter: blur(2px);
+}
+
+.card-header {
+  background-color: var(--coffee-light);
+  color: var(--coffee-dark);
+}
+
+.card-header h5 {
+  font-weight: bold;
+}
+
+.card-icon {
+  font-size: 2rem;
+}
+
+/* Formularios */
+.form-control {
+  border-color: var(--coffee-light);
+}
+
+.form-control:focus {
+  border-color: var(--coffee-medium);
+  box-shadow: 0 0 0 0.25rem rgba(150, 114, 89, 0.25);
+}
+
+.input-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--coffee-medium);
+}
+
+/* Elementos específicos */
+.hero {
+  background-color: var(--coffee-light);
+  color: var(--coffee-dark);
+}
+
+.star-rating {
+  color: var(--coffee-medium);
+}
+
+.product-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.instagram-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.instagram-overlay:hover {
+  opacity: 1;
+}
+
+/* Carrito de compras */
+.cart-sidebar {
+  position: fixed;
+  top: 0;
+  right: -400px;
+  width: 400px;
+  height: 100%;
+  background-color: #f8f9fa;
+  box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  transition: right 0.3s ease-in-out;
+  z-index: 1001;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cart-sidebar.active {
+  right: 0;
+}
+
+.cart-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: none;
+}
+
+.cart-overlay.active {
+  display: block;
+}
+
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cart-footer {
+  margin-top: auto;
+}
+
+/* Pasos de progreso */
 .progress-steps .nav-tabs {
   border-bottom: none;
 }
@@ -117,25 +239,44 @@
   background-color: #000;
 }
 
-  
-  .btn-auth {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #ff5c5c;
-    color: white;
-    font-weight: bold;
-    border-radius: 5px;
-    text-align: center;
-    text-decoration: none; 
-    transition: background-color 0.3s ease, transform 0.3s ease;
+/* Página de error */
+.error-page {
+  min-height: calc(100vh - 136px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.error-content {
+  text-align: center;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.error-icon {
+  font-size: 5rem;
+  color: var(--coffee-medium);
+  margin-bottom: 1rem;
+}
+
+.error-title {
+  color: var(--coffee-dark);
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.error-message {
+  color: var(--coffee-medium);
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+/* Media queries para responsividad */
+@media (max-width: 768px) {
+  .cart-sidebar {
+    width: 100%;
+    right: -100%;
   }
-  
-  .btn-auth:hover {
-    background-color: #ff8585;
-    transform: scale(1.05);
-  }
-  
-  .btn-auth:focus {
-    outline: none;
-    box-shadow: 0 0 10px rgba(255, 92, 92, 0.6);
-  }
+}
