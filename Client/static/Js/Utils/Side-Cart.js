@@ -3,23 +3,26 @@
 let cartItems = [];
 
 function getUserToken() {
-  return localStorage.getItem('userToken') || 'default_token';
+  return localStorage.getItem('user_token')
 }
 
 async function fetchCartItems() {
   const token = getUserToken();
   try {
-    const response = await fetch('/items_cart', {
+    const response = await fetch('/cart/get_items_cart', { 
       method: 'GET',
       headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
+        'Authorization': `Bearer ${token}`
       }
     });
-    if (!response || !response.ok) {
-      throw new Error('Failed to fetch cart items');
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.detail);
     }
-    cartItems = await response.json();
+
+    cartItems = data.detail;
     return cartItems;
   } catch (error) {
     console.error('Error fetching cart items:', error);
@@ -30,16 +33,16 @@ async function fetchCartItems() {
 async function addToCart(itemId) {
   const token = getUserToken();
   try {
-    const response = await fetch('/add_to_cart', {
+    const response = await fetch('/cart/add_to_cart', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ item_id: itemId, user_token: token })
+      body: JSON.stringify({ item_id: itemId, token: token, quantity: 1 })
     });
-    if (!response || !response.ok) {
-      throw new Error('Failed to add item to cart');
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(data.detail || 'Failed to add item to cart');
     }
     await fetchCartItems();
     updateCart();
@@ -51,21 +54,21 @@ async function addToCart(itemId) {
 async function removeFromCart(itemId) {
   const token = getUserToken();
   try {
-    const response = await fetch('/delete_to_cart', {
+    const response = await fetch('/cart/delete_to_cart', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ item_id: itemId, user_token: token })
+      body: JSON.stringify({ item_id: itemId, token: token, quantity: null })
     });
-    if (!response || !response.ok) {
-      throw new Error('Failed to remove item from cart');
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(data.detail || 'Failed to remove item from cart');
     }
     await fetchCartItems();
     updateCart();
   } catch (error) {
-    console.error('Error removing item from cart:', error);
+    console.error('Error removing item from cart:', error); 
   }
 }
 
@@ -111,6 +114,57 @@ function updateCart() {
   itemCount.textContent = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 }
 
+function openCart() {
+  const cartSidebar = document.getElementById('cart-sidebar');
+  const cartOverlay = document.getElementById('cart-overlay');
+  
+  if (cartSidebar && cartOverlay) {
+    cartSidebar.classList.add('active');
+    cartOverlay.classList.add('active');
+    fetchCartItems().then(updateCart);
+  } else {
+    console.error('Cart sidebar or overlay not found');
+  }
+}
+
+function closeCart() {
+  const cartSidebar = document.getElementById('cart-sidebar');
+  const cartOverlay = document.getElementById('cart-overlay');
+  
+  if (cartSidebar && cartOverlay) {
+    cartSidebar.classList.remove('active');
+    cartOverlay.classList.remove('active');
+  } else {
+    console.error('Cart sidebar or overlay not found');
+  }
+}
+
+function initializeCart() {
+  const cartIcon = document.getElementById('cart-icon');
+  const closeCartButton = document.getElementById('close-cart');
+  const cartOverlay = document.getElementById('cart-overlay');
+
+  if (cartIcon) {
+    cartIcon.addEventListener('click', openCart);
+  } else {
+    console.error('Cart icon not found');
+  }
+
+  if (closeCartButton) {
+    closeCartButton.addEventListener('click', closeCart);
+  } else {
+    console.error('Close cart button not found');
+  }
+
+  if (cartOverlay) {
+    cartOverlay.addEventListener('click', closeCart);
+  } else {
+    console.error('Cart overlay not found');
+  }
+
+  fetchCartItems().then(updateCart);
+}
+
 const SideCart = {
   getCartItems: () => cartItems,
   setCartItems: (items) => { cartItems = items; },
@@ -118,7 +172,14 @@ const SideCart = {
   addToCart,
   removeFromCart,
   updateCart,
-  getUserToken
+  getUserToken,
+  openCart,
+  closeCart,
+  initializeCart
 };
 
-module.exports = SideCart;
+document.addEventListener('DOMContentLoaded', SideCart.initializeCart);
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = SideCart;
+}

@@ -1,7 +1,7 @@
 from fastapi import FastAPI, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from routers import auth, home, support, items, catalog, cart
+from routers import auth, home, support, items, catalog, cart, test
 from pathlib import Path
 from dotenv import load_dotenv
 

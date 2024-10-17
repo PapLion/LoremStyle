@@ -1,6 +1,5 @@
 from fastapi import APIRouter, HTTPException, status
 from fastapi.responses import HTMLResponse
-from pathlib import Path
 from models import item_create_model, item_delete_model
 from database.queries import InsertQueries, DropQueries
 
@@ -13,10 +12,10 @@ async def insert_item(item: item_create_model):
                 name=item.name,
                 price=item.price,
                 category=item.category,
-                status=item.status,
+                condition=item.condition,
                 image=item.image,
                 clothe_type=item.clothe_type,
-                public=item.public,
+                audience=item.audience,
                 release_date=item.release_date,
                 popularity=item.popularity,
             )
@@ -34,7 +33,7 @@ async def insert_item(item: item_create_model):
 
 @app.post('/item_delete')
 async def item_delete(item: item_delete_model):
-    dq = dropQueries()
+    dq = DropQueries()
     response = await dq.row_drop(
                 id=item.id,
                 table='items'

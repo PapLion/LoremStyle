@@ -39,6 +39,27 @@ class DropQueries:
                 self.conn.close()
         return True
 
+    async def delete_item_from_cart(self, user_id: int, item_id: int):
+        """Deletes an item from the user's cart.
+        Args:
+            user_id (int): The ID of the user.
+            item_id (int): The ID of the item to remove from the cart.
+        Raises:
+            Exception: If an error occurs during the deletion, the error is printed.
+        Finally, it closes the database connection.
+        """
+        if self.conn is None:
+            await self.setup()
+        try:
+            async with self.conn.cursor() as cursor:
+                query = "DELETE FROM ecommerce.cart WHERE user_id = %s AND item_id = %s LIMIT 1"
+                await cursor.execute(query, (user_id, item_id))
+        except Exception as e:
+            print(f"Error deleting item from cart: {e}")
+        finally:
+            if self.conn:
+                self.conn.close()
+
 
 class InsertQueries:
     """
@@ -80,14 +101,14 @@ class InsertQueries:
             if self.conn:
                 self.conn.close()
 
-    async def insert_item(self, name: str, price: float, category: str, status: str, image: str, clothe_type: str, audience: str, release_date: str, popularity: int) -> bool:
+    async def insert_item(self, name: str, price: float, category: str, condition: str, image: str, clothe_type: str, audience: str, release_date: str, popularity: int) -> bool:
         """Inserts a new item into the items table.
 
         Args:
             name (str): The name of the item.
             price (float): The price of the item.
             category (str): The category of the item.
-            status (str): The status of the item.
+            condition (str): The condition of the item.
             image (str): The image URL of the item.
             clothe_type (str): The type of clothing.
             audience (str): For specific audiences.
@@ -101,9 +122,9 @@ class InsertQueries:
             await self.setup()
         try:
             async with self.conn.cursor() as cursor:
-                query = """INSERT INTO ecommerce.items (name, price, category, status, image, clothe_type, audience, release_date, popularity) 
+                query = """INSERT INTO ecommerce.items (name, price, category, condition, image, clothe_type, audience, release_date, popularity) 
                            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"""
-                await cursor.execute(query, (name, price, category, status, image, clothe_type, audience, release_date, popularity,))
+                await cursor.execute(query, (name, price, category, condition, image, clothe_type, audience, release_date, popularity,))
                 item_id = cursor.lastrowid
         except Exception as e:
             print(f"Error inserting item: {e}")
@@ -116,7 +137,7 @@ class InsertQueries:
             "name": name,
             "price": price,
             "category": category,
-            "status": status,
+            "condition": condition,
             "image": image,
             "clothe_type": clothe_type,
             "audience": audience,
@@ -124,7 +145,7 @@ class InsertQueries:
             "popularity": popularity
         }
 
-    async def insert_cart(self, user_id: int, item_id: int, quantity: int):
+    async def insert_item_from_cart(self, user_id: int, item_id: int, quantity: int):
         """Inserts a new item into the user's cart.
 
         Args:
@@ -143,6 +164,37 @@ class InsertQueries:
             async with self.conn.cursor() as cursor:
                 query = "INSERT INTO ecommerce.cart (user_id, item_id, quantity) VALUES (%s, %s, %s)"
                 await cursor.execute(query, (user_id, item_id, quantity))
+        except Exception as e:
+            print(f"Error inserting cart: {e}")
+        finally:
+            if self.conn:
+                self.conn.close()
+
+    async def insert_all_items_in_db(self, data):
+    # Insertar datos en la tabla
+
+        if self.conn is None:
+            await self.setup()
+        try:
+            async with self.conn.cursor() as cursor:
+                insert_query = """
+                INSERT INTO items (name, price, category, condition, image, clothe_type, audience, release_date, popularity)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+                """
+                
+                for item in data:
+                    await cursor.execute(insert_query, (
+                        item["name"],
+                        item["price"],
+                        item["category"],
+                        item["condition"],
+                        item["image"],
+                        item["clothe_type"],
+                        item["audience"],
+                        item["release_date"],
+                        item["popularity"]
+                    ))
+                    
         except Exception as e:
             print(f"Error inserting cart: {e}")
         finally:
@@ -216,7 +268,7 @@ class SearchQueries:
                             "name": data[1],
                             "price": float(data[2]),
                             "category": data[3],
-                            "status": data[4],
+                            "condition": data[4],
                             "image": data[5],
                             "clothe_type": data[6],
                             "audience": data[7],
@@ -248,7 +300,7 @@ class SearchQueries:
                             "name": data[1],
                             "price": float(data[2]),
                             "category": data[3],
-                            "status": data[4],
+                            "condition": data[4],
                             "image": data[5],
                             "clothe_type": data[6],
                             "audience": data[7],

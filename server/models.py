@@ -10,10 +10,10 @@ class item_create_model(BaseModel):
     name: str
     price: float
     category: str
-    status: str
+    condition: str
     image: str
     clothe_type: str
-    public: str
+    audience: str
     release_date: str
     popularity: int
 
@@ -25,5 +25,5 @@ class item_delete_model(BaseModel):
 
 class cart(BaseModel):
     item_id: int
-    user_id: int
-    quantity: int
+    token: str
+    quantity: Optional[int]

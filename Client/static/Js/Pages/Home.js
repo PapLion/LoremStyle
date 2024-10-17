@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   fetchLatestItems();
+  updateLatestItems();
 })
 
 window.onload = function() {
@@ -13,29 +14,28 @@ window.onload = function() {
   };
 
   function fetchLatestItems() {
-    return fetch('/latest_items', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ limit: 3 }),
-    })
-      .then((response) => {
+    fetch('/latest_items', { method: 'GET' })
+      .then(response => {
         if (!response.ok) {
-          throw new Error('Error en la petición');
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
         return response.json();
       })
-      .then((items) => {
-        updateLatestItems(items);
+      .then(data => {
+        if (data.detail) { 
+          const items = data.detail;
+          updateLatestItems(items);
+        } else {
+          console.error("El JSON no contiene la propiedad 'detail'.");
+        }
       })
-      .catch((error) => {
+      .catch(error => {
         console.error('Error al obtener los últimos ítems:', error);
       });
   }
   
   function updateLatestItems(items) {
-    const row = document.querySelector('.row.g-4');
+    const row = document.querySelector('.row.g-4.new');
     row.innerHTML = '';
   
     items.forEach((item) => {
@@ -47,7 +47,7 @@ window.onload = function() {
           <div class="card-body">
             <h5 class="card-title">${item.name}</h5>
             <p class="card-text">$${item.price}</p>
-            <button class="btn btn-primary w-100 mt-2" onclick="addItemToCart(${item.id})">Añadir Producto al Carrito</button>
+            <button class="btn btn-primary w-100 mt-2" onclick="addToCart(${item.id})">Añadir Producto al Carrito</button>
           </div>
         </div>
       `;
@@ -56,7 +56,7 @@ window.onload = function() {
   }
 
   function redirectToCatalog(edadSeleccionada) {
-    window.location.href = `./Html/Catalog.html?edad=${edadSeleccionada}`;
+    window.location.href = `/catalog?audience=${edadSeleccionada}`;
   }
 
   module.exports = { fetchLatestItems, updateLatestItems };

@@ -3,7 +3,7 @@ import json
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from fastapi.responses import HTMLResponse, JSONResponse
 from pathlib import Path
-from database.queries import InsertQueries, SearchQueries
+from database.queries import InsertQueries, SearchQueries, DropQueries
 from models import cart
 from JWT.functions_jwt import validate_token
 
@@ -19,8 +19,7 @@ async def cart_page():
 async def get_items_cart(credentials: HTTPAuthorizationCredentials = Depends(security)):
     token = credentials.credentials
 
-    response = validate_token(token)
-    #return response
+    response = validate_token(token=token)
 
     if isinstance(response, JSONResponse):
         json_data = json.loads(response.body.decode('UTF-8'))
@@ -37,23 +36,47 @@ async def get_items_cart(credentials: HTTPAuthorizationCredentials = Depends(sec
         detail=items
     )
 
-    
-
 @app.post("/add_to_cart")
 async def add_to_cart(cart: cart):
     iq = InsertQueries()
-    await iq.insert_cart(
-        user_id=cart.user_id, 
+
+    token = cart.token
+    response = validate_token(token)
+
+    if isinstance(response, JSONResponse):
+        json_data = json.loads(response.body.decode('UTF-8'))
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail=json_data['message']
+        )
+
+    user_id = response['id']
+
+    await iq.insert_item_from_cart(
+        user_id=user_id, 
         item_id=cart.item_id,
         quantity=cart.quantity
     )
     
 @app.post("/delete_to_cart")
 async def delete_to_cart(cart: cart):
-    iq = InsertQueries()
-    await iq.delete_cart(
-        user_id=cart.user_id, 
-        item_id=cart.item_id)
+    dq = DropQueries()
+
+    token = cart.token
+    response = validate_token(token)
+
+    if isinstance(response, JSONResponse):
+        json_data = json.loads(response.body.decode('UTF-8'))
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail=json_data['message']
+        )
+
+    user_id = response['id']
+
+    await dq.delete_item_from_cart(
+        item_id=cart.item_id,
+        user_id=user_id)
 
 @app.get("/payment", response_class=HTMLResponse)
 async def cart_payment():

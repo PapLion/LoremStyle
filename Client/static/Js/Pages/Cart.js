@@ -3,12 +3,12 @@
 let cartItems = [];
 
 const getUserToken = () => {
-  return sessionStorage.getItem('user_token') || 'token_por_defecto';
+  return sessionStorage.getItem('user_token');
 };
 
 const fetchCartItems = async () => {
   try {
-    const response = await fetch('/items_cart', {
+    const response = await fetch('/cart/get_items_cart', {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${getUserToken()}`,
@@ -21,6 +21,7 @@ const fetchCartItems = async () => {
     }
 
     cartItems = await response.json();
+    console.log(cartItems.detail)
     updateCart();
   } catch (error) {
     console.error('Error al obtener los items del carrito:', error);
@@ -101,7 +102,7 @@ const updateQuantity = async (id, newQuantity) => {
 
 const removeItem = async (id) => {
   try {
-    const response = await fetch('/delete_to_cart', {
+    const response = await fetch('/cart/delete_to_cart', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${getUserToken()}`,
